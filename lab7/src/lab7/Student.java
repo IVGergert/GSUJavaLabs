@@ -1,4 +1,6 @@
-package lab6;
+package lab7;
+
+import Exceptions.InvalidFieldValueException;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,7 +11,10 @@ public class Student implements Serializable {
     private final int age;
     private final boolean arrears;
 
-    public Student(String lastName, int age, boolean arrears) {
+    public Student(String lastName, int age, boolean arrears) throws InvalidFieldValueException {
+        if (age < 0) {
+            throw new InvalidFieldValueException("Возраст не может быть отрицательным.");
+        }
         this.lastName = lastName;
         this.age = age;
         this.arrears = arrears;
@@ -29,11 +34,11 @@ public class Student implements Serializable {
 
 
     public static double calculateAverageAge(List<Student> students) {
-        if (students.isEmpty()){
+        if (students.isEmpty()) {
             return 0;
         }
         int sum = 0;
-        for (Student student : students){
+        for (Student student : students) {
             sum += student.getAge();
         }
 
